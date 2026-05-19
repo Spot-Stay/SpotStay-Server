@@ -74,7 +74,6 @@ END";
             using SqlConnection conn = db.GetConnection();
             using SqlCommand cmd = new SqlCommand(sql, conn);
 
-            // 데이터가 null일 경우를 대비해 DBNull.Value 처리 안전장치 추가
             cmd.Parameters.AddWithValue("@ContentId", spot.ContentId);
             cmd.Parameters.AddWithValue("@Name", spot.Name ?? (object)DBNull.Value);
             cmd.Parameters.AddWithValue("@Address", spot.Address ?? (object)DBNull.Value);

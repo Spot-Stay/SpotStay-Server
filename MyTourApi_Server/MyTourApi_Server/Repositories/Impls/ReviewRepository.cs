@@ -1,6 +1,4 @@
-﻿//ReviewRepository.cs
-
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using MyTourApi_Server.Models;
@@ -23,7 +21,6 @@ namespace MyTourApi_Server.Repositories.Impls
                                 ?? throw new InvalidOperationException("Connection string not found.");
         }
 
-        // "TouristSpot" -> "SPOT", "Accommodation" -> "ACCOM" 변환 (DB 공통 규격 매핑)
         private string ConvertTargetTypeToDb(string targetType) =>
             targetType == "TouristSpot" ? "SPOT" : (targetType == "Accommodation" ? "ACCOM" : targetType);
 

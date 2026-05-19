@@ -30,7 +30,6 @@ namespace MyTourApi_Server.Repositories.Impls
                 WHERE (Name LIKE @Keyword OR @Keyword = '')
                   AND (RegionSido LIKE @Region OR @Region = '')";
 
-            // Dapper 파라미터 바인딩 (% 기호를 붙여 부분 검색 가능하게 만듦)
             var parameters = new
             {
                 Keyword = string.IsNullOrEmpty(keyword) ? "" : $"%{keyword}%",
@@ -46,7 +45,7 @@ namespace MyTourApi_Server.Repositories.Impls
 
         public async Task<TouristSpot?> GetSpotByIdAsync(int spotId)
         {
-            // ⭐ 특정 SpotId와 일치하는 데이터 1개만 들고오는 쿼리
+            // 특정 SpotId와 일치하는 데이터 1개만 들고오는 쿼리
             string query = @"
         SELECT SpotId, ContentId, Name, Address, Category, 
                Description, Phone, Homepage, ImageUrl, Latitude, Longitude, 

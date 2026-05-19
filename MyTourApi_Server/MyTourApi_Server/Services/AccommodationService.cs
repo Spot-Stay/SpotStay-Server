@@ -55,13 +55,12 @@ namespace MyTourApi_Server.Services
 
             double c = 2 * Math.Atan2(Math.Sqrt(a), Math.Sqrt(1 - a));
 
-            return Math.Round(R * c, 2); // 소수점 2자리
+            return Math.Round(R * c, 2);
         }
 
         private double ToRad(double degree) => degree * Math.PI / 180;
         public Accommodation? GetAccomDetail(int id)
         {
-            // 진짜 DB에 들러서 ID로 조회한 데이터를 그대로 컨트롤러에 반환
             return _repo.GetById(id);
         }
     }

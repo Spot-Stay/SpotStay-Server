@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace MyTourApi_Server.Controllers
 {
     [ApiController]
-    [Route("api/touristspots")] // 실제 주소: api/touristspots
+    [Route("api/touristspots")]
     public class TouristSpotController : ControllerBase
     {
         private readonly ITouristSpotService _touristSpotService;
@@ -22,7 +22,7 @@ namespace MyTourApi_Server.Controllers
         public async Task<IActionResult> Search([FromQuery] string keyword = "", [FromQuery] string region = "")
         {
             var results = await _touristSpotService.SearchSpotsAsync(keyword, region);
-            return Ok(results); // 200 OK와 함께 더미 리스트 반환
+            return Ok(results);
         }
 
         // GET api/touristspots/{id}

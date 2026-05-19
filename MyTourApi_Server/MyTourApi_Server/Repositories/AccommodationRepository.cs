@@ -61,7 +61,6 @@ namespace MyTourApi_Server.Repositories
             using var conn = new SqlConnection(_connStr);
             conn.Open();
 
-            // Dapper의 QueryFirstOrDefault 문법을 사용해 1개만 매핑
             return conn.QueryFirstOrDefault<Accommodation>(sql, new { AccomId = accomId });
         }
     }

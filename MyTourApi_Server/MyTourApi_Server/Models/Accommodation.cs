@@ -25,6 +25,6 @@
         public double Latitude { get; set; }
         public double Longitude { get; set; }
         public string? BookingUrl { get; set; }
-        public double DistanceKm { get; set; }  // ← 거리 추가
+        public double DistanceKm { get; set; } 
     }
 }

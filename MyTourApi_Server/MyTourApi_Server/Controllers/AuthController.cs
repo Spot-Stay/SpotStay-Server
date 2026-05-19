@@ -8,12 +8,12 @@ using System;
 namespace MyTourApi_Server.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")] // 실제 주소: api/auth
+    [Route("api/[controller]")] 
     public class AuthController : ControllerBase
     {
         private readonly IAuthService _authService;
 
-        // 생성자를 통해 AuthService를 주입받습니다.
+        // 생성자를 통해 AuthService를 주입
         public AuthController(IAuthService authService)
         {
             _authService = authService;

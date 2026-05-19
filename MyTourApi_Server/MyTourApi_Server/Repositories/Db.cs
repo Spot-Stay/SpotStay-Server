@@ -9,7 +9,6 @@ namespace MyTourApi_Server.Repositories
 
         public Db(IConfiguration configuration)
         {
-            // 종혁님의 appsettings.json 연결 문자열 매핑 완벽 반영
             connectionString = configuration.GetConnectionString("DefaultConnection") ?? "";
         }
 

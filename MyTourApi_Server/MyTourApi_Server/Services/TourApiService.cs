@@ -17,7 +17,6 @@ namespace MyTourApi_Server.Services
         public TourApiService(HttpClient httpClient, IConfiguration configuration)
         {
             this.httpClient = httpClient;
-            // 종혁님의 appsettings.json 구조인 ExternalApis:TourApi:ServiceKey에 맞게 수정
             serviceKey = configuration["ExternalApis:TourApi:ServiceKey"] ?? "";
         }
 
@@ -25,9 +24,8 @@ namespace MyTourApi_Server.Services
         {
             string encodedKeyword = Uri.EscapeDataString(keyword);
 
-            // 종혁님의 appsettings.json에 들어있는 서비스 키를 활용해 URL 구성
             string url =
-                "https://apis.data.go.kr/B551011/KorService2/searchKeyword2" + // KorService2 -> KorService1 규격으로 변경 가능성 고려
+                "https://apis.data.go.kr/B551011/KorService2/searchKeyword2" + 
                 $"?serviceKey={serviceKey}" +
                 "&MobileOS=ETC" +
                 "&MobileApp=MyTourApp" + // 모바일 앱 이름 매핑 변경
@@ -56,11 +54,11 @@ namespace MyTourApi_Server.Services
                 using JsonDocument doc = JsonDocument.Parse(json);
                 JsonElement root = doc.RootElement;
 
-                // 공공데이터 특유의 깊은 JSON 트리 구조 안전하게 파싱 (response -> body -> items -> item)
+                // 공공데이터 JSON 트리 구조 안전하게 파싱 (response -> body -> items -> item)
                 if (!root.TryGetProperty("response", out JsonElement response) ||
                     !response.TryGetProperty("body", out JsonElement body) ||
                     !body.TryGetProperty("items", out JsonElement items) ||
-                    items.ValueKind == JsonValueKind.String) // 검색 결과가 없을 때 빈 문자열"" 로 오는 예외 방어
+                    items.ValueKind == JsonValueKind.String) 
                 {
                     return list;
                 }
@@ -75,12 +73,12 @@ namespace MyTourApi_Server.Services
                             Name = GetString(item, "title"),
                             Address = GetString(item, "addr1"),
                             Category = ConvertContentType(GetString(item, "contenttypeid")),
-                            Description = "", // 키워드 검색 결과에는 상세 설명이 안 오므로 빈 값 처리
+                            Description = "", 
                             Phone = GetString(item, "tel"),
                             Homepage = null,
                             ImageUrl = GetString(item, "firstimage"),
-                            Latitude = GetNullableDouble(item, "mapy") ?? 0.0,  // null 방어 및 double 변환
-                            Longitude = GetNullableDouble(item, "mapx") ?? 0.0, // null 방어 및 double 변환
+                            Latitude = GetNullableDouble(item, "mapy") ?? 0.0,  
+                            Longitude = GetNullableDouble(item, "mapx") ?? 0.0,
                             RegionSido = GetString(item, "areacode"),
                             RegionSigungu = GetString(item, "sigungucode")
                         };
