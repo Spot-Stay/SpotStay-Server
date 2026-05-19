@@ -29,6 +29,13 @@ builder.Services.AddHttpClient<TourApiService>(); // HttpClient가 내장된 Tou
 //builder.Services.AddHttpClient<NaverLocalApiService>(); // HttpClient가 내장된 네이버 서비스 등록
 builder.Services.AddScoped<INaverLocalApiService, NaverLocalApiService>();
 
+builder.Services.AddScoped<IViewPointRepository, ViewPointRepository>();
+builder.Services.AddScoped<IViewPointService, ViewPointService>();
+
+builder.Services.AddScoped<ICampSiteRepository, CampSiteRepository>();
+builder.Services.AddScoped<ICampSiteService, CampSiteService>();
+builder.Services.AddScoped<ICampSiteCsvImportService, CampSiteCsvImportService>();
+
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
