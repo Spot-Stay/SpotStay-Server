@@ -25,7 +25,7 @@ namespace MyTourApi_Server.Repositories.Impls
                     Description, 
                     Latitude, 
                     Longitude
-                FROM ViewPoint
+                FROM jjh.ViewPoint
                 WHERE ParkName LIKE @ParkName
                   AND Latitude IS NOT NULL
                   AND Longitude IS NOT NULL
@@ -55,6 +55,59 @@ namespace MyTourApi_Server.Repositories.Impls
             }
 
             return list;
+        }
+
+        public bool ExistsByNameAndParkName(string name, string parkName)
+        {
+            string sql = @"
+                SELECT COUNT(*) 
+                FROM jjh.ViewPoint 
+                WHERE Name = @Name 
+                  AND ParkName = @ParkName";
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+
+            using SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Name", name);
+            cmd.Parameters.AddWithValue("@ParkName", parkName);
+
+            int count = Convert.ToInt32(cmd.ExecuteScalar());
+
+            return count > 0;
+        }
+
+        public int InsertViewPoint(ViewPoint viewPoint)
+        {
+            string sql = @"
+                INSERT INTO jjh.ViewPoint
+                (
+                    Name, 
+                    ParkName, 
+                    Description, 
+                    Latitude, 
+                    Longitude
+                )
+                VALUES
+                (
+                    @Name, 
+                    @ParkName, 
+                    @Description, 
+                    @Latitude, 
+                    @Longitude
+                )";
+
+            using SqlConnection conn = new SqlConnection(connectionString);
+            conn.Open();
+
+            using SqlCommand cmd = new SqlCommand(sql, conn);
+            cmd.Parameters.AddWithValue("@Name", viewPoint.Name ?? "");
+            cmd.Parameters.AddWithValue("@ParkName", viewPoint.ParkName ?? "");
+            cmd.Parameters.AddWithValue("@Description", viewPoint.Description ?? "");
+            cmd.Parameters.AddWithValue("@Latitude", viewPoint.Latitude);
+            cmd.Parameters.AddWithValue("@Longitude", viewPoint.Longitude);
+
+            return cmd.ExecuteNonQuery();
         }
     }
 }
