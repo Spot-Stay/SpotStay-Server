@@ -1,4 +1,4 @@
-﻿namespace MyTourApi.DTOs.Response
+﻿namespace MyTourApi_Server.DTOs.Response
 {
     public class TouristSpotResponseDto
     {

@@ -1,12 +1,13 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using MyTourApi.Repositories.Interfaces;
+using MyTourApi_Server.Repositories.Interfaces;
 using MyTourApi_Server.Models;
 using System.Data;
 using System.Threading.Tasks;
+using System;
 
-namespace MyTourApi.Repositories.Impls
+namespace MyTourApi_Server.Repositories.Impls
 {
     public class MemberRepository : IMemberRepository
     {
@@ -30,5 +31,19 @@ namespace MyTourApi.Repositories.Impls
                 return await db.QuerySingleOrDefaultAsync<Member>(query, new { UserId = userId });
             }
         }
+        public async Task<Member?> GetProfileByIdAsync(int memberId)
+        {
+            // ⭐ 마이페이지에 보여줄 회원 정보 조회 쿼리 (보안상 비밀번호는 제외)
+            string query = @"
+            SELECT MemberId, UserId, Name
+            FROM jjh.Member
+            WHERE MemberId = @MemberId";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                return await db.QueryFirstOrDefaultAsync<Member>(query, new { MemberId = memberId });
+            }
+        }
+
     }
 }

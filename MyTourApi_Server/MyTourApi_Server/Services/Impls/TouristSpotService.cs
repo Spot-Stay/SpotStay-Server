@@ -1,5 +1,5 @@
-﻿using MyTourApi.DTOs.Response;
-using MyTourApi.Services.Interfaces;
+﻿using MyTourApi_Server.DTOs.Response;
+using MyTourApi_Server.Services.Interfaces;
 using MyTourApi_Server.Repositories.Interfaces;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,7 +26,7 @@ namespace MyTourApi_Server.Services.Impls
             return spots.Select(s => new TouristSpotResponseDto
             {
                 SpotId = s.SpotId,
-                SpotName = s.Name,
+                SpotName = s.Name?? "이름 없음",
                 Category = s.Category ?? "미분류",
                 Address = s.Address ?? "",
                 Latitude = s.Latitude,
@@ -37,9 +37,25 @@ namespace MyTourApi_Server.Services.Impls
 
         public async Task<TouristSpotResponseDto?> GetSpotDetailAsync(int id)
         {
-            // (상세 조회가 필요하다면 나중에 이 부분도 레포지토리에 함수를 뚫어서 연결하면 됩니다!)
-            await Task.Delay(10);
-            return null;
+            // 1. 진짜 DB에 가서 해당 ID의 관광지가 있는지 가져옵니다.
+            var spot = await _touristSpotRepository.GetSpotByIdAsync(id);
+
+            // 2. 만약 DB에 데이터가 없다면 null을 반환합니다.
+            if (spot == null) return null;
+
+            // 3. 찾은 데이터가 있다면 DTO 바구니에 이쁘게 담아서 반환합니다.
+            return new TouristSpotResponseDto
+            {
+                SpotId = spot.SpotId,
+                SpotName = spot.Name ?? "이름 없음",
+                Category = spot.Category ?? "미분류",
+                Address = spot.Address ?? "",
+                Latitude = spot.Latitude,
+                Longitude = spot.Longitude,
+                ImageUrl = spot.ImageUrl ?? ""
+                // 💡 팁: 나중에 상세 설명(Description)이나 홈페이지 정보도 화면에 띄우고 싶다면,
+                // TouristSpotResponseDto 파일에 변수를 만들고 여기에 추가로 매핑해 주면 됩니다!
+            };
         }
     }
 }

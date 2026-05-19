@@ -1,4 +1,4 @@
-﻿namespace MyTourApi.DTOs.Request
+﻿namespace MyTourApi_Server.DTOs.Request
 {
     public class LoginRequestDto
     {

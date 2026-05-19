@@ -1,11 +1,11 @@
-﻿using MyTourApi.DTOs.Request;
-using MyTourApi.DTOs.Response;
-using System.Threading.Tasks;
+﻿using MyTourApi_Server.DTOs.Request;
+using MyTourApi_Server.DTOs.Response;
 
-namespace MyTourApi.Services.Interfaces
+namespace MyTourApi_Server.Services.Interfaces
 {
     public interface IAuthService
     {
         Task<LoginResponseDto> LoginAsync(LoginRequestDto request);
+        Task<UserProfileResponseDto?> GetUserProfileAsync(int memberId);
     }
 }

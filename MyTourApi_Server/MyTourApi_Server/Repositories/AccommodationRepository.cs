@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.SqlClient;
+﻿using Dapper;
+using Microsoft.Data.SqlClient;
 using MyTourApi_Server.Models;
 using System.Collections.Generic;
 
@@ -47,6 +48,22 @@ namespace MyTourApi_Server.Repositories
                 });
             }
             return list;
+        }
+
+        // 특정 ID로 숙소 1개만 상세 조회
+        public Accommodation? GetById(int accomId)
+        {
+            string sql = @"
+            SELECT AccomId, Name, Address, AccomType, 
+           Phone, ImageUrl, Latitude, Longitude, BookingUrl
+            FROM jjh.Accommodation
+            WHERE AccomId = @AccomId";
+
+            using var conn = new SqlConnection(_connStr);
+            conn.Open();
+
+            // Dapper의 QueryFirstOrDefault 문법을 사용해 1개만 매핑
+            return conn.QueryFirstOrDefault<Accommodation>(sql, new { AccomId = accomId });
         }
     }
 }

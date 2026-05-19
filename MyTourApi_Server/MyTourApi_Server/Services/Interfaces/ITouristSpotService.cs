@@ -1,8 +1,8 @@
-﻿using MyTourApi.DTOs.Response;
+﻿using MyTourApi_Server.DTOs.Response;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyTourApi.Services.Interfaces
+namespace MyTourApi_Server.Services.Interfaces
 {
     public interface ITouristSpotService
     {

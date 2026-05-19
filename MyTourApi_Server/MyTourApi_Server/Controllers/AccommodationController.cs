@@ -38,5 +38,23 @@ namespace MyTourApi_Server.Controllers
                 return StatusCode(500, ApiResponse<object>.Fail($"서버 오류: {ex.Message}"));
             }
         }
+        // GET /api/Accommodation/3
+        [HttpGet("{id}")]
+        public IActionResult GetAccomDetail(int id)
+        {
+            try
+            {
+                var result = _service.GetAccomDetail(id);
+
+                if (result == null)
+                    return NotFound(ApiResponse<object>.Fail("해당 숙소를 찾을 수 없습니다."));
+
+                return Ok(ApiResponse<Accommodation>.Ok(result, "숙소 상세 정보 조회 성공"));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ApiResponse<object>.Fail($"서버 오류: {ex.Message}"));
+            }
+        }
     }
 }

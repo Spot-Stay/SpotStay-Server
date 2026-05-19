@@ -1,12 +1,11 @@
-using MyTourApi.Repositories.Impls;
-using MyTourApi.Repositories.Interfaces;
-using MyTourApi.Services.Impls;
-using MyTourApi.Services.Interfaces;
+
+using MyTourApi_Server.Services.Impls;
 using MyTourApi_Server.Repositories;
 using MyTourApi_Server.Repositories.Impls;
 using MyTourApi_Server.Repositories.Interfaces;
 using MyTourApi_Server.Services;
-using MyTourApi_Server.Services.Impls;
+using MyTourApi_Server.Services.Interfaces;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,9 +17,11 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ITouristSpotService, TouristSpotService>();
 builder.Services.AddScoped<IMemberRepository, MemberRepository>();
 builder.Services.AddScoped<ITouristSpotRepository, TouristSpotRepository>();
-
+builder.Services.AddScoped<IFavoriteRepository, FavoriteRepository>();
+builder.Services.AddScoped<IFavoriteService, FavoriteService>();
 builder.Services.AddSingleton(new AccommodationRepository(connectionString));
 builder.Services.AddSingleton<AccommodationService>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 
 builder.Services.AddControllers();

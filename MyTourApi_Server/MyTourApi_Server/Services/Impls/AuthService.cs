@@ -1,10 +1,10 @@
-﻿using MyTourApi.DTOs.Request;
-using MyTourApi.DTOs.Response;
-using MyTourApi.Repositories.Interfaces;
-using MyTourApi.Services.Interfaces;
-using System.Threading.Tasks;
+﻿using MyTourApi_Server.DTOs.Request;
+using MyTourApi_Server.DTOs.Response;
+using MyTourApi_Server.Repositories.Interfaces;
+using MyTourApi_Server.Services.Interfaces;
 
-namespace MyTourApi.Services.Impls
+
+namespace MyTourApi_Server.Services.Impls
 {
     public class AuthService : IAuthService
     {
@@ -40,5 +40,22 @@ namespace MyTourApi.Services.Impls
                 MemberName = member.Name
             };
         }
+        // 상단에 using MyTourApi_Server.DTOs.Response; 가 없다면 추가해 주세요!
+        public async Task<UserProfileResponseDto?> GetUserProfileAsync(int memberId)
+        {
+            // 1. DB에서 회원 정보 조회
+            var member = await _memberRepository.GetProfileByIdAsync(memberId);
+
+            if (member == null) return null;
+
+            // 2. 응답용 DTO 객체로 이쁘게 매핑
+            return new UserProfileResponseDto
+            {
+                MemberId = member.MemberId,
+                UserId = member.UserId ?? "",
+                MemberName = member.Name ?? "이름 없음"
+            };
+        }
+
     }
 }

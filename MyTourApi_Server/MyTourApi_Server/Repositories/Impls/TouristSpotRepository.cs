@@ -44,5 +44,22 @@ namespace MyTourApi_Server.Repositories.Impls
                 return result.AsList();
             }
         }
+
+        public async Task<TouristSpot?> GetSpotByIdAsync(int spotId)
+        {
+            // ⭐ 특정 SpotId와 일치하는 데이터 1개만 들고오는 쿼리
+            string query = @"
+        SELECT SpotId, ContentId, Name, Address, Category, 
+               Description, Phone, Homepage, ImageUrl, Latitude, Longitude, 
+               RegionSido, RegionSigungu
+        FROM jjh.TouristSpot
+        WHERE SpotId = @SpotId";
+
+            using (IDbConnection db = new SqlConnection(_connectionString))
+            {
+                // 1개만 찾을 때는 QueryFirstOrDefaultAsync를 씁니다.
+                return await db.QueryFirstOrDefaultAsync<TouristSpot>(query, new { SpotId = spotId });
+            }
+        }
     }
 }

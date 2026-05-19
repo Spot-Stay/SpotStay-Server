@@ -7,5 +7,6 @@ namespace MyTourApi_Server.Repositories.Interfaces
     public interface ITouristSpotRepository
     {
         Task<List<TouristSpot>> SearchSpotsAsync(string keyword, string regionSido);
+        Task<TouristSpot?> GetSpotByIdAsync(int spotId);
     }
 }

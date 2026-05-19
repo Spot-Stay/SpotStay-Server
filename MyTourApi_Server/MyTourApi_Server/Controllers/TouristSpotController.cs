@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using MyTourApi.DTOs.Response;
-using MyTourApi.Services.Interfaces;
+using MyTourApi_Server.DTOs.Response;
+using MyTourApi_Server.Services.Interfaces;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MyTourApi.Controllers
+namespace MyTourApi_Server.Controllers
 {
     [ApiController]
     [Route("api/touristspots")] // 실제 주소: api/touristspots

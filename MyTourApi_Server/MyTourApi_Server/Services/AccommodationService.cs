@@ -59,5 +59,10 @@ namespace MyTourApi_Server.Services
         }
 
         private double ToRad(double degree) => degree * Math.PI / 180;
+        public Accommodation? GetAccomDetail(int id)
+        {
+            // 진짜 DB에 들러서 ID로 조회한 데이터를 그대로 컨트롤러에 반환
+            return _repo.GetById(id);
+        }
     }
 }
