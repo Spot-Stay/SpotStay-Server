@@ -26,8 +26,8 @@ builder.Services.AddSingleton<Db>(); // DB 연결 도우미 등록
 builder.Services.AddScoped<TouristSpotImportRepository>(); // 수집용 레포지토리 등록
 
 builder.Services.AddHttpClient<TourApiService>(); // HttpClient가 내장된 TourApi 서비스 등록
-builder.Services.AddHttpClient<NaverLocalApiService>(); // HttpClient가 내장된 네이버 서비스 등록
-
+//builder.Services.AddHttpClient<NaverLocalApiService>(); // HttpClient가 내장된 네이버 서비스 등록
+builder.Services.AddScoped<INaverLocalApiService, NaverLocalApiService>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
