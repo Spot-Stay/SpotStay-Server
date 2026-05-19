@@ -45,7 +45,6 @@ namespace MyTourApi_Server.Controllers
             }
         }
 
-        // TourAPI 검색 후 우리 DB(jjh.TouristSpot)에 자동으로 밀어넣기
         // POST /api/tourapi/search-save?keyword=강릉
         [HttpPost("search-save")]
         public async Task<IActionResult> SearchAndSave([FromQuery] string keyword)

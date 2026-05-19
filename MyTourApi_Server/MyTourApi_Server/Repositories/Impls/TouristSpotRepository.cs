@@ -22,12 +22,11 @@ namespace MyTourApi_Server.Repositories.Impls
 
         public async Task<List<TouristSpot>> SearchSpotsAsync(string keyword, string regionSido)
         {
-            // ⭐ jjh.TouristSpot 스키마 적용 및 조건부 LIKE 검색 쿼리
             string query = @"
                 SELECT SpotId, ContentId, Name, Address, Category, 
                        Description, Phone, Homepage, ImageUrl, Latitude, Longitude, 
                        RegionSido, RegionSigungu
-                FROM jjh.TouristSpot
+                FROM TouristSpot
                 WHERE (Name LIKE @Keyword OR @Keyword = '')
                   AND (RegionSido LIKE @Region OR @Region = '')";
 
@@ -52,7 +51,7 @@ namespace MyTourApi_Server.Repositories.Impls
         SELECT SpotId, ContentId, Name, Address, Category, 
                Description, Phone, Homepage, ImageUrl, Latitude, Longitude, 
                RegionSido, RegionSigungu
-        FROM jjh.TouristSpot
+        FROM TouristSpot
         WHERE SpotId = @SpotId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))

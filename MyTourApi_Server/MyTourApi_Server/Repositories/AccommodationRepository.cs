@@ -19,11 +19,10 @@ namespace MyTourApi_Server.Repositories
         {
             var list = new List<Accommodation>();
 
-            // ⭐ jjh. 스키마 적용 완료
             string sql = @"
             SELECT AccomId, Name, Address, AccomType, 
                    Phone, ImageUrl, Latitude, Longitude, BookingUrl
-            FROM jjh.Accommodation
+            FROM Accommodation
             WHERE Latitude IS NOT NULL AND Longitude IS NOT NULL";
 
             using var conn = new SqlConnection(_connStr);
@@ -56,7 +55,7 @@ namespace MyTourApi_Server.Repositories
             string sql = @"
             SELECT AccomId, Name, Address, AccomType, 
            Phone, ImageUrl, Latitude, Longitude, BookingUrl
-            FROM jjh.Accommodation
+            FROM Accommodation
             WHERE AccomId = @AccomId";
 
             using var conn = new SqlConnection(_connStr);

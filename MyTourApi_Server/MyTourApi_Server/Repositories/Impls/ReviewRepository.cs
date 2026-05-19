@@ -36,7 +36,7 @@ namespace MyTourApi_Server.Repositories.Impls
             string dbTargetType = ConvertTargetTypeToDb(request.TargetType);
 
             string sql = @"
-                INSERT INTO jjh.Review (MemberId, TargetType, TargetId, Rating, Content, CreatedAt)
+                INSERT INTO Review (MemberId, TargetType, TargetId, Rating, Content, CreatedAt)
                 VALUES (@MemberId, @TargetType, @TargetId, @Rating, @Content, GETDATE())";
 
             var parameters = new
@@ -63,8 +63,8 @@ namespace MyTourApi_Server.Repositories.Impls
             string sql = @"
                 SELECT R.ReviewId, R.MemberId, R.TargetType, R.TargetId, R.Rating, R.Content, R.CreatedAt, R.UpdatedAt,
                        M.UserId, M.Name AS MemberName
-                FROM jjh.Review R
-                INNER JOIN jjh.Member M ON R.MemberId = M.MemberId
+                FROM Review R
+                INNER JOIN Member M ON R.MemberId = M.MemberId
                 WHERE R.TargetType = @TargetType AND R.TargetId = @TargetId
                 ORDER BY R.CreatedAt DESC";
 
@@ -88,10 +88,10 @@ namespace MyTourApi_Server.Repositories.Impls
                 SELECT R.ReviewId, R.MemberId, R.TargetType, R.TargetId, R.Rating, R.Content, R.CreatedAt, R.UpdatedAt,
                        M.UserId, M.Name AS MemberName,
                        CASE WHEN R.TargetType = 'SPOT' THEN T.Name WHEN R.TargetType = 'ACCOM' THEN A.Name END AS TargetName
-                FROM jjh.Review R
-                INNER JOIN jjh.Member M ON R.MemberId = M.MemberId
-                LEFT JOIN jjh.TouristSpot T ON R.TargetType = 'SPOT' AND R.TargetId = T.SpotId
-                LEFT JOIN jjh.Accommodation A ON R.TargetType = 'ACCOM' AND R.TargetId = A.AccomId
+                FROM Review R
+                INNER JOIN Member M ON R.MemberId = M.MemberId
+                LEFT JOIN TouristSpot T ON R.TargetType = 'SPOT' AND R.TargetId = T.SpotId
+                LEFT JOIN Accommodation A ON R.TargetType = 'ACCOM' AND R.TargetId = A.AccomId
                 WHERE R.MemberId = @MemberId
                 ORDER BY R.CreatedAt DESC";
 
@@ -112,7 +112,7 @@ namespace MyTourApi_Server.Repositories.Impls
         public async Task<bool> UpdateAsync(int reviewId, ReviewUpdateRequestDto request)
         {
             string sql = @"
-                UPDATE jjh.Review
+                UPDATE Review
                 SET Rating = @Rating, Content = @Content, UpdatedAt = GETDATE()
                 WHERE ReviewId = @ReviewId";
 
@@ -126,7 +126,7 @@ namespace MyTourApi_Server.Repositories.Impls
         // 5. 리뷰 삭제
         public async Task<bool> DeleteAsync(int reviewId)
         {
-            string sql = "DELETE FROM jjh.Review WHERE ReviewId = @ReviewId";
+            string sql = "DELETE FROM Review WHERE ReviewId = @ReviewId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {

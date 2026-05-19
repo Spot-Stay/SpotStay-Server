@@ -34,13 +34,13 @@ namespace MyTourApi_Server.Repositories.Impls
             string sql = @"
                 IF NOT EXISTS (
                     SELECT 1 
-                    FROM jjh.Favorite
+                    FROM Favorite
                     WHERE MemberId = @MemberId 
                       AND TargetType = @TargetType 
                       AND TargetId = @TargetId
                 )
                 BEGIN
-                    INSERT INTO jjh.Favorite (MemberId, TargetType, TargetId, CreatedAt)
+                    INSERT INTO Favorite (MemberId, TargetType, TargetId, CreatedAt)
                     VALUES (@MemberId, @TargetType, @TargetId, GETDATE())
                 END";
 
@@ -78,13 +78,13 @@ namespace MyTourApi_Server.Repositories.Impls
                         WHEN F.TargetType = 'SPOT' THEN T.ImageUrl 
                         WHEN F.TargetType = 'ACCOM' THEN A.ImageUrl 
                     END AS ImageUrl
-                FROM jjh.Favorite F
-                INNER JOIN jjh.Member M 
+                FROM Favorite F
+                INNER JOIN Member M 
                     ON F.MemberId = M.MemberId
-                LEFT JOIN jjh.TouristSpot T 
+                LEFT JOIN TouristSpot T 
                     ON F.TargetType = 'SPOT' 
                    AND F.TargetId = T.SpotId
-                LEFT JOIN jjh.Accommodation A 
+                LEFT JOIN Accommodation A 
                     ON F.TargetType = 'ACCOM' 
                    AND F.TargetId = A.AccomId
                 WHERE F.MemberId = @MemberId
@@ -113,7 +113,7 @@ namespace MyTourApi_Server.Repositories.Impls
         public async Task<bool> DeleteAsync(int favoriteId)
         {
             string sql = @"
-                DELETE FROM jjh.Favorite 
+                DELETE FROM Favorite 
                 WHERE FavoriteId = @FavoriteId";
 
             using IDbConnection db = new SqlConnection(_connectionString);

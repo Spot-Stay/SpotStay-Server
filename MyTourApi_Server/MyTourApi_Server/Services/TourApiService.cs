@@ -69,7 +69,6 @@ namespace MyTourApi_Server.Services
                 {
                     foreach (JsonElement item in itemArray.EnumerateArray())
                     {
-                        // 종혁님의 jjh.TouristSpot 모델 구조에 맞춰 꼼꼼하게 매핑
                         TouristSpot spot = new TouristSpot
                         {
                             ContentId = int.TryParse(GetString(item, "contentid"), out int cid) ? cid : 0,

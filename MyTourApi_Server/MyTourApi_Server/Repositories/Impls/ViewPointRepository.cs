@@ -25,7 +25,7 @@ namespace MyTourApi_Server.Repositories.Impls
                     Description, 
                     Latitude, 
                     Longitude
-                FROM jjh.ViewPoint
+                FROM ViewPoint
                 WHERE ParkName LIKE @ParkName
                   AND Latitude IS NOT NULL
                   AND Longitude IS NOT NULL
@@ -61,7 +61,7 @@ namespace MyTourApi_Server.Repositories.Impls
         {
             string sql = @"
                 SELECT COUNT(*) 
-                FROM jjh.ViewPoint 
+                FROM ViewPoint 
                 WHERE Name = @Name 
                   AND ParkName = @ParkName";
 
@@ -80,7 +80,7 @@ namespace MyTourApi_Server.Repositories.Impls
         public int InsertViewPoint(ViewPoint viewPoint)
         {
             string sql = @"
-                INSERT INTO jjh.ViewPoint
+                INSERT INTO ViewPoint
                 (
                     Name, 
                     ParkName, 

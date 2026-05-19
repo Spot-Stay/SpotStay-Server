@@ -23,7 +23,7 @@ namespace MyTourApi_Server.Repositories.Impls
         public async Task<Member?> GetByUserIdAsync(string userId)
         {
             // 파라미터 바인딩으로 SQL 인젝션 방어
-            string query = "SELECT * FROM jjh.Member WHERE UserId = @UserId";
+            string query = "SELECT * FROM Member WHERE UserId = @UserId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))
             {
@@ -36,7 +36,7 @@ namespace MyTourApi_Server.Repositories.Impls
             // ⭐ 마이페이지에 보여줄 회원 정보 조회 쿼리 (보안상 비밀번호는 제외)
             string query = @"
             SELECT MemberId, UserId, Name
-            FROM jjh.Member
+            FROM Member
             WHERE MemberId = @MemberId";
 
             using (IDbConnection db = new SqlConnection(_connectionString))

@@ -29,18 +29,17 @@ namespace MyTourApi_Server.Repositories
 
         private bool InsertIfNotExists(TouristSpot spot)
         {
-            // 종혁님의 jjh.TouristSpot 테이블 스키마 규칙 반영
             string sql = @"
 IF NOT EXISTS (
     SELECT 1
-    FROM jjh.TouristSpot
+    FROM TouristSpot
     WHERE 
         (ContentId = @ContentId)
         OR
         (Name = @Name AND ISNULL(Address, '') = ISNULL(@Address, ''))
 )
 BEGIN
-    INSERT INTO jjh.TouristSpot
+    INSERT INTO TouristSpot
     (
         ContentId,
         Name,
