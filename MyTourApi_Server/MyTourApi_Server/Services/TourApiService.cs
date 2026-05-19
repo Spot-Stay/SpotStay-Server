@@ -32,7 +32,7 @@ namespace MyTourApi_Server.Services
                 "&MobileOS=ETC" +
                 "&MobileApp=MyTourApp" + // 모바일 앱 이름 매핑 변경
                 "&_type=json" +
-                "&numOfRows=20" +
+                "&numOfRows=50" +
                 "&pageNo=1" +
                 $"&keyword={encodedKeyword}";
 
