@@ -37,6 +37,9 @@ builder.Services.AddScoped<ICampSiteCsvImportService, CampSiteCsvImportService>(
 builder.Services.AddScoped<IViewPointRepository, ViewPointRepository>();
 builder.Services.AddScoped<IViewPointService, ViewPointService>();
 
+builder.Services.AddScoped<IChatRepository, ChatRepository>();
+builder.Services.AddScoped<IChatService, ChatService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi

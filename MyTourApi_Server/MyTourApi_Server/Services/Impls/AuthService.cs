@@ -49,6 +49,5 @@ namespace MyTourApi_Server.Services.Impls
                 MemberName = member.Name ?? "이름 없음"
             };
         }
-
     }
 }
